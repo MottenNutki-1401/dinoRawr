@@ -56,7 +56,16 @@ public class DinoMain{
 
                         Timer timers = new Timer(20, e->{ //unit = miliseconds
                             //1000ms=1sec 1000/20 =50 ms =>game updates 50 times per second(movement)
-                            obstaX -= 5;
+                            obstaX -= 5; //This needs to be outside, player movement and world movement should not be depend opn each other
+                            //before this was inside the (jumping statements)
+
+                               //I must repeat the obstacle when it fly away from the pov (goes off screen)
+                              //Repeat ObstaX logic
+                                if(obstaX < obstaWidth){
+                                    obstaX=700;
+                                }
+                        
+                            //Jumping statements
                             if (isJumping) {
                                 dinoY-=5; //go up
                                 
@@ -73,6 +82,7 @@ public class DinoMain{
                             repaint();
 
                         });  timers.start();
+
                         }
     // Obstacle logic
     @Override 
