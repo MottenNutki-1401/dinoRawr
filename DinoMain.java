@@ -35,10 +35,18 @@ public class DinoMain{
     int dinoY= 100;
     int dinoWidth= 45;
     int dinoHeight= 45;
+
+
+    
     //simple gravity mechanics
     boolean isJumping= false;
     int groundY=311; //this is like a floor, the higher the number it is the lower it gets
     //but this doesnt determine how the dinoY moves, but here the falling condition depends of this
+    //obstacle 
+    int obstaX = 600;
+    int obstaY = groundY;
+    int obstaWidth = 20;
+    int obstaHeight = 35;
 
 
                 //key press logic / Constructor 
@@ -48,9 +56,10 @@ public class DinoMain{
 
                         Timer timers = new Timer(20, e->{ //unit = miliseconds
                             //1000ms=1sec 1000/20 =50 ms =>game updates 50 times per second(movement)
-
+                            obstaX -= 5;
                             if (isJumping) {
                                 dinoY-=5; //go up
+                                
 
                             if(dinoY <=200){
                                 isJumping=false;
@@ -65,7 +74,7 @@ public class DinoMain{
 
                         });  timers.start();
                         }
-    
+    // Obstacle logic
     @Override 
         protected void paintComponent (Graphics g) { //you can change any letter here
             super.paintComponent(g); //paintCompnent is a reserve keyword
@@ -73,6 +82,9 @@ public class DinoMain{
             //drawing dino using the variable constraints (from above)
             g.setColor(Color.decode("#fffd80"));
             g.fillRect(dinoX,dinoY,dinoWidth,dinoHeight);
+
+            g.setColor(Color.decode("#ff70d4"));
+            g.fillRect(obstaX,obstaY,obstaWidth,obstaHeight);
     
         } 
 
