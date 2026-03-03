@@ -63,8 +63,8 @@ public class DinoMain{
                         
 
                         //materials in here
-                        obstacles.add(700);
-                        obstacles.add(900);
+                      //  obstacles.add(700);
+                        //obstacles.add(900);
                         
 
                         Timer timers = new Timer(20, e->{ //unit = miliseconds
@@ -122,7 +122,8 @@ public class DinoMain{
     
         }  */
 
-           g.fillRect( obstaX,obstaY,obstaHeight, obstaWidth);
+           g.fillRect( obstaX,obstaY, obstaWidth, obstaHeight); //width and Height determines if its lying down or up
+           // This should be in order : width x width will be height
         }
 
         //key Listener Methods
