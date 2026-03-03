@@ -118,7 +118,7 @@ public class DinoMain{
             g.setColor(Color.decode("#ff70d4"));
         /* *  for  (int x : obstacles) {
             g.fillRect(x , obstaY-obstaWidth,obstaHeight, obstaWidth);
-          }
+          } wrong oeientation
     
         }  */
 
