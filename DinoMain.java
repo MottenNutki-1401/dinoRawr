@@ -29,7 +29,7 @@ public class DinoMain{
     //@Override => we're replacing a method from a parent class with our 
     //own version in this case its a (JPanel)
  class GamePanel extends JPanel implements KeyListener{ //i got an error when i put it inside the DinoMain class so i had to put it outside
-     ArrayList <Integer> obstacles = new ArrayList <> ();
+     ArrayList <Integer> obstacley = new ArrayList <> ();
         
     //draw dino (logic only) position + size
     //we put all the game states here
@@ -55,6 +55,8 @@ public class DinoMain{
     int obstaWidth = 20;
     int obstaHeight = 35;
 
+    
+
 
                 //key press logic / Constructor 
                         public GamePanel () { 
@@ -63,30 +65,30 @@ public class DinoMain{
                         
 
                         //materials in here
-                      //  obstacles.add(700);
-                        //obstacles.add(900);
-                        
+                        obstacley.add(700);
+                        obstacley.add(900);
+                            
 
                         Timer timers = new Timer(20, e->{ //unit = miliseconds
                             //1000ms=1sec 1000/20 =50 ms =>game updates 50 times per second(movement)
-                            obstaX -= 5; //This needs to be outside, player movement and world movement should not be depend opn each other
+                             // obstaX -= 5; //This needs to be outside, player movement and world movement should not be depend opn each other
                             //before this was inside the (jumping statements)
 
                             //obstacle logic
 
-                           // ArrayList <Integer> obstacles  = new ArrayList <> (); declared in gamepanel constructor kasi pano gagamitin andito sa labas
-
-                            //
-                           // obstacles.add(700);
-                           // obstacles.add(900);
-                            
-
                                //I must repeat the obstacle when it fly away from the pov (goes off screen)
                               //Repeat ObstaX logic
-                                if(obstaX < obstaWidth){
-                                    obstaX=700;
-                                }
-                        
+
+                              for (int i=0; i<obstacley.size();i++) {// "for (each index: on the list)"
+                                
+                              int x = obstacley.get (i); //read obstaX value
+                              x-=5;
+                              if(x<-obstaWidth) //when its out of screen we cant see
+                              {
+                                x = 700;
+                              }
+                              obstacley.set(i,x); //updated stored values
+                            }
                             //Jumping statements_
                             if (isJumping) {
                                 dinoY-=5; //go up
@@ -113,16 +115,16 @@ public class DinoMain{
 
             //drawing dino using the variable constraints (from above)
             g.setColor(Color.decode("#fffd80"));
-            g.fillRect(dinoX,dinoY,dinoWidth,dinoHeight);
+            g.fillRect(dinoX,dinoY-dinoHeight,dinoWidth,dinoHeight); //both should have the same Y logic so they become aligned
 
             g.setColor(Color.decode("#ff70d4"));
-        /* *  for  (int x : obstacles) {
-            g.fillRect(x , obstaY-obstaWidth,obstaHeight, obstaWidth);
-          } wrong oeientation
-    
-        }  */
+         for  (int xo : obstacley) {
+            g.fillRect(xo, obstaY-obstaHeight,obstaWidth, obstaHeight); //Y is not important as of the moment
+          
+           System.out.println(obstacley);
+        }  
 
-           g.fillRect( obstaX,obstaY, obstaWidth, obstaHeight); //width and Height determines if its lying down or up
+          // g.fillRect( obstaX,obstaY, obstaWidth, obstaHeight); //width and Height determines if its lying down or up
            // This should be in order : width x width will be height
         }
 
