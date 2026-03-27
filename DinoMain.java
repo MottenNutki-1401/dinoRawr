@@ -30,11 +30,14 @@ public class DinoMain{
     //own version in this case its a (JPanel)
  class GamePanel extends JPanel implements KeyListener{ //i got an error when i put it inside the DinoMain class so i had to put it outside
      ArrayList <Integer> obstacley = new ArrayList <> ();
+
+    //score mechanics
+    int score = 0;
         
     //draw dino (logic only) position + size
     //we put all the game states here
     int dinoX = 50;
-    int dinoY= 100;
+    int dinoY= 311;
     int dinoWidth= 45;
     int dinoHeight= 45;
 
@@ -67,8 +70,11 @@ public class DinoMain{
                         //materials in here
                         obstacley.add(700);
                         obstacley.add(900);
+                        obstacley.add(1050);
+                        obstacley.add(1120);
+                       
                             
-
+                //Timer Loop Logic
                         Timer timers = new Timer(20, e->{ //unit = miliseconds
                             //1000ms=1sec 1000/20 =50 ms =>game updates 50 times per second(movement)
                              // obstaX -= 5; //This needs to be outside, player movement and world movement should not be depend opn each other
@@ -78,6 +84,7 @@ public class DinoMain{
 
                                //I must repeat the obstacle when it fly away from the pov (goes off screen)
                               //Repeat ObstaX logic
+                              score++;
 
                               for (int i=0; i<obstacley.size();i++) {// "for (each index: on the list)"
                                 
@@ -112,15 +119,19 @@ public class DinoMain{
     @Override 
         protected void paintComponent (Graphics g) { //you can change any letter here
             super.paintComponent(g); //paintCompnent is a reserve keyword
-
+             
+            //groundline
+            g.setColor(Color.WHITE);
+            g.drawLine(0,groundY,700,groundY);
             //drawing dino using the variable constraints (from above)
             g.setColor(Color.decode("#fffd80"));
             g.fillRect(dinoX,dinoY-dinoHeight,dinoWidth,dinoHeight); //both should have the same Y logic so they become aligned
-
+            
             g.setColor(Color.decode("#ff70d4"));
          for  (int xo : obstacley) {
             g.fillRect(xo, obstaY-obstaHeight,obstaWidth, obstaHeight); //Y is not important as of the moment
-          
+            g.setFont(new Font ("Horizon", Font.BOLD,20));
+            g.drawString("Score: " +score, 500,40); // 600=> how farfrom left, 50=> how far from top
            System.out.println(obstacley);
         }  
 
